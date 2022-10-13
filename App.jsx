@@ -14,13 +14,25 @@ export default function App() {
     ]);
   };
 
+  const deleteGoalHandler = (key) => {
+    setCourseGoals((currentCourseGoals) => {
+      return currentCourseGoals.filter((goal) => goal.key !== key);
+    });
+  };
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
-          renderItem={(itemData) => <GoalItem itemData={itemData} />}
+          renderItem={(itemData) => (
+            <GoalItem
+              itemData={itemData}
+              onDeleteItem={deleteGoalHandler}
+              id={itemData.item.key}
+            />
+          )}
         />
       </View>
     </View>
